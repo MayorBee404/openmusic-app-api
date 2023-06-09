@@ -1,0 +1,3 @@
+.prod.env
+node_modules
+.env
