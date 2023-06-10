@@ -1,7 +1,7 @@
 {
   "name": "openmusic-app-api",
   "version": "1.0.0",
-  "description": "Open Music App API ",
+  "description": "Open Music App API by Dicoding Indonesia",
   "main": "index.js",
   "scripts": {
     "start-prod": "NODE_ENV=production node ./src/server.js",

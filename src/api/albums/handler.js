@@ -21,6 +21,7 @@ class AlbumsHandler {
       },
     });
     response.code(201);
+    return response;
   }
 
   async getAlbumsHandler(request, h) {

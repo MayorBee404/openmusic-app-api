@@ -29,7 +29,7 @@ class SongsHandler {
     return response;
   }
 
-  async getSongsHandler(request, h) {
+  async getSongsHandler() {
     const songs = await this._service.getSongs();
     return {
       status: 'success',
@@ -85,3 +85,5 @@ class SongsHandler {
     }
   }
 }
+
+module.exports = SongsHandler;
