@@ -3,10 +3,10 @@ const Hapi = require('@hapi/hapi');
 const { compile } = require('joi');
 const albums = require('./api/albums');
 const songs = require('./api/songs');
-const AlbumsService = require('./services/postgress/AlbumsService');
-const AlbumsValidator = require('./validator/AlbumsValidator');
-const SongsService = require('./services/postgress/SongsService');
-const SongsValidator = require('./validator/SongsValidator');
+const AlbumsService = require('./services/inMemory/AlbumsService');
+const AlbumsValidator = require('./validator/albums');
+const SongsService = require('./services/inMemory/SongsService');
+const SongsValidator = require('./validator/songs');
 const ClientError = require('./exceptions/ClientError');
 
 const init = async () => {
@@ -26,14 +26,14 @@ const init = async () => {
     {
       plugin: albums,
       options: {
-        service: new AlbumsService(),
+        service: albumsService,
         validator: AlbumsValidator,
       },
     },
     {
       plugin: songs,
       options: {
-        service: new SongsService(),
+        service: songsService,
         validator: SongsValidator,
       },
     },
