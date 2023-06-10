@@ -63,7 +63,7 @@ class SongsServices {
     const result = await this._pool.query(query);
 
     if (!result.rows.length) {
-      throw new NotFoundError('Gagal memperbarui gagal. Id tidak ditemukan');
+      throw new NotFoundError('Gagal memperbarui Lagu. Id tidak ditemukan');
     }
   }
 
