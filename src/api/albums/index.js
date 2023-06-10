@@ -1,25 +1,12 @@
-const autoBind = require('auto-bind');
-const ClientError = require('../../exceptions/ClientError');
+const { server } = require('@hapi/hapi');
+const AlbumsHandler = require('./handler');
+const routes = require('./routes');
 
-class AlbumsHandler {
-  constructor(service, validator) {
-    this._service = service;
-    this._validator = validator;
+module.exports = {
+  name: 'albums',
+  version: '1.0.0',
 
-    autoBind(this);
-  }
-
-  async postAlbumHandler(request, h) {
-    this._validator.validateAlbumPayload(request.payload);
-    const { name, year } = request.payload;
-    const albumId = await this._service.addAlbum({ name, year });
-    const response = h.response({
-      status: 'success',
-      message: 'Album berhasil ditambahkan',
-      data: {
-        albumId,
-      },
-    });
-    response.code(201);
-  }
-}
+  register: async (service, validator) => {
+    const albumsHandler = new AlbumsHandler(service, validator);
+  },
+};
