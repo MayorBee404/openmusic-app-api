@@ -89,9 +89,9 @@ class AlbumsHandler {
     try {
       this._validator.validateAlbumPayload(request.payload);
       const { id } = request.params;
-      const { title, year } = request.payload;
+      const { name, year } = request.payload;
 
-      await this._service.editAlbumById(id, { title, year });
+      await this._service.editAlbumById(id, { name, year });
 
       return {
         status: 'success',

@@ -13,24 +13,22 @@ const mapAlbums = ({
   updatedAt: updated_at,
 });
 
-module.exports = { mapAlbums };
-
 const mapSongs = ({
   id,
   title,
   year,
-  genre,
   performer,
+  genre,
   duration,
   album_id,
 }) => ({
   id,
   title,
   year,
-  genre,
   performer,
+  genre,
   duration,
   albumId: album_id,
 });
 
-module.exports = { mapSongs };
+module.exports = { mapSongs, mapAlbums };
