@@ -1,11 +1,10 @@
 require('dotenv').config();
 const Hapi = require('@hapi/hapi');
-const { compile } = require('joi');
 const albums = require('./api/albums');
 const songs = require('./api/songs');
-const AlbumsService = require('./services/postgress/AlbumsService');
+const AlbumsService = require('./services/postgres/AlbumsService');
 const AlbumsValidator = require('./validator/albums');
-const SongsService = require('./services/postgress/SongsService');
+const SongsService = require('./services/postgres/SongsService');
 const SongsValidator = require('./validator/songs');
 const ClientError = require('./exceptions/ClientError');
 
