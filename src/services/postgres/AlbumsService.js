@@ -3,6 +3,7 @@ const { nanoid } = require('nanoid');
 const InvariantError = require('../../exceptions/InvariantError');
 const NotFoundError = require('../../exceptions/NotFoundError');
 const { mapAlbums } = require('../../utils');
+const { mapSongs } = require('../../utils');
 
 class AlbumsService {
   constructor() {
@@ -37,7 +38,7 @@ class AlbumsService {
     };
 
     const querySong = {
-      text: 'SELECT songs.id, songs.title, songs.performer FROM songs INNER JOIN albums ON albums.id=songs."album_id" WHERE albums.id = $1',
+      text: 'SELECT songs.id, songs.title, songs.performer FROM songs INNER JOIN albums ON albums.id = songs.album_id WHERE albums.id = $1',
       values: [id],
     };
 
