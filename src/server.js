@@ -47,6 +47,7 @@ const init = async () => {
           message: response.message,
         });
         newResponse.code(response.statusCode);
+        console.log(newResponse);
         return newResponse;
       }
       if (!response.isServer) {
@@ -57,6 +58,7 @@ const init = async () => {
         message: 'Terjadi kesalahan pada server kami.',
       });
       newResponse.code(500);
+      console.log(newResponse);
       return newResponse;
     }
     return h.continue;
