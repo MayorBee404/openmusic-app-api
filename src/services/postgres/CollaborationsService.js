@@ -1,6 +1,7 @@
 const { nanoid } = require('nanoid');
 const { Pool } = require('pg');
 const InvariantError = require('../../exceptions/InvariantError');
+const NotFoundError = require('../../exceptions/NotFoundError');
 
 class CollaborationsService {
   constructor() {
@@ -17,7 +18,7 @@ class CollaborationsService {
     const result = await this._pool.query(query);
 
     if (!result.rows.length) {
-      throw new InvariantError('Collaboration gagal ditambahkan');
+      throw new InvariantError('Kolaborasi gagal ditambahkan');
     }
 
     return result.rows[0].id;
@@ -32,7 +33,7 @@ class CollaborationsService {
     const result = await this._pool.query(query);
 
     if (!result.rows.length) {
-      throw new InvariantError('Collaboration gagal diverifikasi');
+      throw new InvariantError('Kolaborasi gagal diverifikasi');
     }
   }
 
@@ -45,7 +46,20 @@ class CollaborationsService {
     const result = await this._pool.query(query);
 
     if (!result.rows.length) {
-      throw new InvariantError('Collaboration gagal dihapus');
+      throw new InvariantError('Kolaborasi gagal dihapus');
+    }
+  }
+
+  async verifyUser(userId) {
+    const query = {
+      text: 'SELECT * FROM users WHERE id = $1',
+      values: [userId],
+    };
+
+    const result = await this._pool.query(query);
+
+    if (!result.rows.length) {
+      throw new NotFoundError('User Tidak ditemukan');
     }
   }
 }
