@@ -26,12 +26,12 @@ exports.up = (pgm) => {
     },
     duration: {
       type: 'INTEGER',
-      notNull: true,
+      notNull: false,
     },
     album_id: {
       type: 'varchar(50)',
       notNull: false,
-      references: '"albums"',
+      references: 'albums',
       onDelete: 'cascade',
     },
   });
