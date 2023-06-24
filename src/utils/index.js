@@ -51,6 +51,18 @@ const mapPlaylist = ({
   username,
 });
 
+const mapActivity = ({
+  username,
+  title,
+  action,
+  time,
+}) => ({
+  username,
+  title,
+  action,
+  time,
+});
+
 module.exports = {
-  mapSongs, mapAlbums, mapSong, mapPlaylist,
+  mapSongs, mapAlbums, mapSong, mapPlaylist, mapActivity,
 };

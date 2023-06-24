@@ -1,6 +1,6 @@
 const { nanoid } = require('nanoid');
 const { Pool } = require('pg');
-const { mapPlaylist, mapSong } = require('../../utils');
+const { mapPlaylist, mapSong, mapActivity } = require('../../utils');
 const InvariantError = require('../../exceptions/InvariantError');
 const NotFoundError = require('../../exceptions/NotFoundError');
 const AuthorizationError = require('../../exceptions/AuthorizationError');
@@ -175,7 +175,7 @@ class PlaylistsService {
   async addSongActivities({
     playlistId, songId, userId, action,
   }) {
-    const id = nanoid(16);
+    const id = `psa-${nanoid(16)}`;
     const timeStamp = new Date().toISOString();
 
     const query = {
@@ -205,7 +205,7 @@ class PlaylistsService {
       throw new NotFoundError('Playlist tidak ditemukan');
     }
 
-    return result.rows;
+    return result.rows.map(mapActivity);
   }
 }
 
