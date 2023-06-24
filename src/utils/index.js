@@ -31,4 +31,38 @@ const mapSongs = ({
   albumId: album_id,
 });
 
-module.exports = { mapSongs, mapAlbums };
+const mapSong = ({
+  song_id,
+  song_title,
+  performer,
+}) => ({
+  id: song_id,
+  title: song_title,
+  performer,
+});
+
+const mapPlaylist = ({
+  id,
+  name,
+  username,
+}) => ({
+  id,
+  name,
+  username,
+});
+
+const mapActivity = ({
+  username,
+  title,
+  action,
+  time,
+}) => ({
+  username,
+  title,
+  action,
+  time,
+});
+
+module.exports = {
+  mapSongs, mapAlbums, mapSong, mapPlaylist, mapActivity,
+};
