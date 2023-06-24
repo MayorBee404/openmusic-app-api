@@ -3,10 +3,12 @@ const autoBind = require('auto-bind');
 class CollaborationsHandler {
   constructor(
     playlistsService,
+    usersService,
     service,
     validator,
   ) {
     this._playlistsService = playlistsService;
+    this._usersService = usersService;
     this._service = service;
     this._validator = validator;
 
@@ -16,14 +18,11 @@ class CollaborationsHandler {
   async postCollaborationHandler(request, h) {
     try {
       this._validator.validateCollaborationPayload(request.payload);
-
       const { id: credentialId } = request.auth.credentials;
       const { playlistId, userId } = request.payload;
 
       await this._playlistsService.verifyPlaylistOwner(playlistId, credentialId);
-
-      console.log(`Eror Collab ${playlistId} ${credentialId}`);
-
+      await this._usersService.getUserById(userId);
       const collaborationId = await this._service.addCollaboration(
         playlistId,
         userId,
@@ -50,6 +49,7 @@ class CollaborationsHandler {
       const { playlistId, userId } = request.payload;
 
       await this._playlistsService.verifyPlaylistOwner(playlistId, credentialId);
+      await this._usersService.getUserById(userId);
       await this._service.deleteCollaboration(
         playlistId,
         userId,
