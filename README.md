@@ -5,5 +5,6 @@ Dicoding Indonesia
 Rating :star::star::star::star:
 
 ### Submission 2
+Rating :star::star::star::star:
 
 ### Submission 3
