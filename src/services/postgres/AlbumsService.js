@@ -50,6 +50,7 @@ class AlbumsService {
       id: result.rows[0].id,
       name: result.rows[0].name,
       year: result.rows[0].year,
+      coverUrl: result.rows[0].cover,
       songs: resultSong.rows,
     };
   }
@@ -75,6 +76,19 @@ class AlbumsService {
     const result = await this._pool.query(query);
     if (!result.rows.length) {
       throw new NotFoundError('Album gagal dihapus. Id tidak ditemukan');
+    }
+  }
+
+  async addAlbumCover({ id, cover }) {
+    const query = {
+      text: 'UPDATE albums SET cover = $1 WHERE id = $2 RETURNING id',
+      values: [cover, id],
+    };
+
+    const result = await this._pool.query(query);
+
+    if (!result.rows.length) {
+      throw new NotFoundError('Gagal menambahkan sampul album. Id tidak ditemukan');
     }
   }
 }
