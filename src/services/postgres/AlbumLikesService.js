@@ -45,7 +45,6 @@ class AlbumLikesService {
       throw new InvariantError('Album Likes gagal ditambahkan');
     }
 
-    // cache
     await this._cacheService.delete(`album:${albumId}`);
 
     return result.rows[0].id;
