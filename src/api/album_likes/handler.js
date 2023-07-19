@@ -8,17 +8,49 @@ class AlbumLikesHandler {
     autoBind(this);
   }
 
-  async postLikeAlbumHandler(request, h) {
-    const { id } = request.params;
-    const { id: userId } = request.auth.credentials;
+  async postAlbumLikeHandler(request, h) {
+    const { id: credentialId } = request.auth.credentials;
+    const albumId = request.params.id;
 
-    await this._albumsService.getAlbumById(id);
-    await this._service.addLikeAlbums(userId, id);
+    await this._service.addAlbumLike(credentialId, albumId);
+
     const response = h.response({
       status: 'success',
-      message: 'Like album berhasil ditambahkan ke daftar ',
+      message: 'Like pada Album berhasil ditambahkan',
     });
     response.code(201);
+    return response;
+  }
+
+  async deleteAlbumLikeByIdHandler(request, h) {
+    const { id: credentialId } = request.auth.credentials;
+    const albumId = request.params.id;
+
+    await this._service.deleteAlbumLike(credentialId, albumId);
+
+    return {
+      status: 'success',
+      message: 'Like pada Album berhasil dihapus',
+    };
+  }
+
+  async getAlbumLikeByIdHandler(request, h) {
+    const albumId = request.params.id;
+    const likesData = await this._service.getAlbumLikeById(albumId);
+
+    const { likesCount, source } = likesData;
+
+    const tempLikeCount = JSON.parse(likesCount);
+
+    const response = h.response({
+      status: 'success',
+      data: {
+        likes: tempLikeCount,
+      },
+    });
+
+    response.header('X-Data-Source', source);
+
     return response;
   }
 
